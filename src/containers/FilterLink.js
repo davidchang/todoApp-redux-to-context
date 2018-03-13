@@ -1,20 +1,21 @@
-import { connect } from 'react-redux'
-import { setVisibilityFilter } from '../actions'
-import Link from '../components/Link'
+import React from 'react';
+import { VisibilityFilterContext } from '../providers/visibilityFilterProvider';
+import Link from '../components/Link';
 
-const mapStateToProps = (state, ownProps) => ({
-  active: ownProps.filter === state.visibilityFilter
-})
+const FilterLink = ({ filter, ...props }) => {
+  return (
+    <VisibilityFilterContext.Consumer>
+      {({ visibilityFilter, setVisibilityFilter }) => (
+        <Link
+          onClick={() => {
+            setVisibilityFilter(filter);
+          }}
+          active={visibilityFilter === filter}
+          {...props}
+        />
+      )}
+    </VisibilityFilterContext.Consumer>
+  );
+};
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  onClick: () => {
-    dispatch(setVisibilityFilter(ownProps.filter))
-  }
-})
-
-const FilterLink = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Link)
-
-export default FilterLink
+export default FilterLink;

@@ -1,15 +1,15 @@
-import React from 'react'
-import { render } from 'react-dom'
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import App from './components/App'
-import reducer from './reducers'
+import React from 'react';
+import { render } from 'react-dom';
+import App from './components/App';
 
-const store = createStore(reducer)
+import TodosProvider from './providers/todosProvider';
+import VisibilityFilterProvider from './providers/visibilityFilterProvider';
 
 render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root')
-)
+  <TodosProvider>
+    <VisibilityFilterProvider>
+      <App />
+    </VisibilityFilterProvider>
+  </TodosProvider>,
+  document.getElementById('root'),
+);
